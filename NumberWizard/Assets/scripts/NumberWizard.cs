@@ -23,6 +23,8 @@ public class NumberWizard : MonoBehaviour {
 			print ("Up arrow pressed");
 		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			print ("Down arrow pressed");
+		} else if (Input.GetKeyDown (KeyCode.Return)) {
+			print ("I won!");
 		}
 	}
 }
