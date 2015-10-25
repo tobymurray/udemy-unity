@@ -3,26 +3,31 @@ using System.Collections;
 
 public class NumberWizard : MonoBehaviour {
 
+	int m_min = 1;
+	int m_max = 1000;
+	int m_guess = 500;
+
 	// Use this for initialization
 	void Start () {
+		m_max = m_max + 1;
 		print ("Welcome to Number Wizard");
 		print ("Pick a number in your head, but don't tell me!");
-
-		int min = 1;
-		int max = 1000;
-
-		print ("The lowest number you can pick is " + min);
-		print ("The highest number you can pick is " + max);
-		print ("Is the number higher or lower than 500?");
+		print ("The lowest number you can pick is " + m_min);
+		print ("The highest number you can pick is " + m_max);
+		print ("Is the number higher or lower than " + m_guess + "?");
 		print ("Up = higher, down = lower, return = equal");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			print ("Up arrow pressed");
+			m_min = m_guess;
+			m_guess = (m_max + m_min) / 2;
+			print ("Higher or lower than " + m_guess + "?");
 		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			print ("Down arrow pressed");
+			m_max = m_guess;
+			m_guess = (m_max + m_min) / 2;
+			print ("Higher or lower than " + m_guess + "?");
 		} else if (Input.GetKeyDown (KeyCode.Return)) {
 			print ("I won!");
 		}
