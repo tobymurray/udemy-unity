@@ -20,12 +20,11 @@ public class NumberWizard : MonoBehaviour {
 	void StartGame() {
 		m_min = 1;
 		m_max = 1000;
-		m_guess = (m_min + m_max) / 2;
-		m_max = m_max + 1;
+		NextGuess ();
 	}
 
 	void NextGuess() {
-		m_guess = (m_max + m_min) / 2;
+		m_guess = Random.Range (m_min, m_max + 1);
 		m_text.text = m_guess.ToString();
 		m_numGuesses += 1;
 		if (m_numGuesses >= m_maxGuesses) {
