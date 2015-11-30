@@ -5,8 +5,7 @@ public class MusicPlayer : MonoBehaviour {
 
 	private static MusicPlayer s_instance;
 
-	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (s_instance != null) {
 			Destroy (gameObject);
 			print ("Duplicate music player self-destructing!");
@@ -14,6 +13,10 @@ public class MusicPlayer : MonoBehaviour {
 			s_instance = this;
 			GameObject.DontDestroyOnLoad (gameObject);
 		}
+	}
+
+	// Use this for initialization
+	void Start () {
 
 	}
 	
