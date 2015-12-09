@@ -15,6 +15,6 @@ public class LoseColliderScript : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision2D) {
 		print ("Collision");
-		m_levelManager.LoadLevel ("Win");
+		m_levelManager.LoadLevel ("Lose");
 	}
 }
