@@ -32,7 +32,7 @@ public class Brick : MonoBehaviour {
 		if (m_isBreakable) {
 			HandleHits ();
 		}
-		AudioSource.PlayClipAtPoint (m_crack, transform.position);
+		AudioSource.PlayClipAtPoint (m_crack, transform.position, 0.25f);
 	}
 
 	void HandleHits() {
