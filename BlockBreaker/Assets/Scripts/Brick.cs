@@ -21,6 +21,13 @@ public class Brick : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision2D) {
+		bool isBreakable = (this.tag == "Breakable");
+		if (isBreakable) {
+			HandleHits ();
+		}
+	}
+
+	void HandleHits() {
 		m_timesHit++;
 		if (m_timesHit >= m_maxHits) {
 			Destroy (gameObject);
@@ -31,7 +38,10 @@ public class Brick : MonoBehaviour {
 
 	void LoadSprites() {
 		int spriteIndex = m_timesHit - 1;
-		this.GetComponent<SpriteRenderer> ().sprite = m_hitSprites [spriteIndex];
+		if (m_hitSprites [spriteIndex]) {
+			this.GetComponent<SpriteRenderer> ().sprite = m_hitSprites [spriteIndex];
+			Debug.Log ("Unable to load sprite with index" + spriteIndex);
+		}
 	}
 	
 }
