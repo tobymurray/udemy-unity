@@ -50,7 +50,8 @@ public class Brick : MonoBehaviour {
 		int spriteIndex = m_timesHit - 1;
 		if (m_hitSprites [spriteIndex]) {
 			this.GetComponent<SpriteRenderer> ().sprite = m_hitSprites [spriteIndex];
-			Debug.Log ("Unable to load sprite with index" + spriteIndex);
+		} else {
+			Debug.LogError ("Unable to load sprite with index: " + spriteIndex);
 		}
 	}
 	
