@@ -4,8 +4,12 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
+	public GameObject m_projectile;
 	public float m_speed;
 	public float m_padding;
+	public float m_projectileSpeed;
+	public float m_firingRate;
+
 	private float m_minX;
 	private float m_maxX;
 
@@ -31,5 +35,18 @@ public class PlayerController : MonoBehaviour
 		float newX = Mathf.Clamp (transform.position.x, m_minX, m_maxX);
 
 		transform.position = new Vector3 (newX, transform.position.y, transform.position.z);
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			InvokeRepeating ("Fire", 0.000001f, m_firingRate);
+		}
+
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			CancelInvoke("Fire");
+		}
+	}
+
+	void Fire() {
+		GameObject projectile = Instantiate (m_projectile, transform.position, Quaternion.identity) as GameObject;
+		projectile.rigidbody2D.velocity = Vector3.up * m_projectileSpeed;
 	}
 }
