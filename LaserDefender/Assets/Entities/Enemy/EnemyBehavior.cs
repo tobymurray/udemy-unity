@@ -33,8 +33,7 @@ public class EnemyBehavior : MonoBehaviour
 
 	void Fire ()
 	{
-		Vector3 startPosition = new Vector3 (transform.position.x, transform.position.y - 1);
-		GameObject projectile = Instantiate (m_projectile, startPosition, Quaternion.identity) as GameObject;
+		GameObject projectile = Instantiate (m_projectile, transform.position, Quaternion.identity) as GameObject;
 		projectile.rigidbody2D.velocity = Vector3.down * m_projectileSpeed;
 	}
 }
