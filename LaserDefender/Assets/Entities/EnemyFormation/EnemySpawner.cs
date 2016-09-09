@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 	public float m_width = 16f;
 	public float m_height = 9f;
 	public float m_speed = 5f;
+	public float m_spawnDelay;
 	private bool m_movingRight = false;
 	private float m_maxX;
 	private float m_minX;
@@ -22,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 		m_minX = leftBoundary.x;
 		m_maxX = rightBoundary.x;
 
-		SpawnFormation ();
+		SpawnUntilFull ();
 	}
 
 	public void OnDrawGizmos ()
@@ -49,8 +50,28 @@ public class EnemySpawner : MonoBehaviour
 
 		if (AllMembersDead ()) {
 			Debug.Log ("Empty Formation");
-			SpawnFormation ();
+			SpawnUntilFull ();
 		}
+	}
+
+	void SpawnUntilFull() {
+		Transform freePosition = NextFreePosition ();
+		if (!freePosition) {
+			return;
+		}
+
+		GameObject enemy = Instantiate (m_enemyPrefab, freePosition.transform.position, Quaternion.identity) as GameObject;
+		enemy.transform.parent = freePosition;
+		Invoke ("SpawnUntilFull", m_spawnDelay);
+	}
+
+	Transform NextFreePosition() {
+		foreach (Transform childPositionGameOjbect in transform) {
+			if (childPositionGameOjbect.childCount == 0) {
+				return childPositionGameOjbect;
+			}
+		}
+		return null;
 	}
 
 	bool AllMembersDead ()
