@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour
 	public float m_width = 16f;
 	public float m_height = 9f;
 	public float m_speed = 5f;
-	
 	private bool m_movingRight = false;
 	private float m_maxX;
 	private float m_minX;
@@ -23,10 +22,7 @@ public class EnemySpawner : MonoBehaviour
 		m_minX = leftBoundary.x;
 		m_maxX = rightBoundary.x;
 
-		foreach (Transform child in transform) {
-			GameObject enemy = Instantiate (m_enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
-			enemy.transform.parent = child;
-		}
+		SpawnFormation ();
 	}
 
 	public void OnDrawGizmos ()
@@ -49,6 +45,29 @@ public class EnemySpawner : MonoBehaviour
 			if (formationLeftEdge < m_minX) {
 				m_movingRight = true;
 			}
+		}
+
+		if (AllMembersDead ()) {
+			Debug.Log ("Empty Formation");
+			SpawnFormation ();
+		}
+	}
+
+	bool AllMembersDead ()
+	{
+		foreach (Transform childPositionGameOjbect in transform) {
+			if (childPositionGameOjbect.childCount != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	void SpawnFormation ()
+	{
+		foreach (Transform child in transform) {
+			GameObject enemy = Instantiate (m_enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
+			enemy.transform.parent = child;
 		}
 	}
 }
