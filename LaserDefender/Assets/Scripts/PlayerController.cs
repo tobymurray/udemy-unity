@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 	public float m_projectileSpeed;
 	public float m_firingRate;
 	public float m_health;
-
 	private float m_minX;
 	private float m_maxX;
 
@@ -42,23 +41,25 @@ public class PlayerController : MonoBehaviour
 		}
 
 		if (Input.GetKeyUp (KeyCode.Space)) {
-			CancelInvoke("Fire");
+			CancelInvoke ("Fire");
 		}
 	}
 
-	void Fire() {
+	void Fire ()
+	{
 		GameObject projectile = Instantiate (m_projectile, transform.position, Quaternion.identity) as GameObject;
 		projectile.rigidbody2D.velocity = Vector3.up * m_projectileSpeed;
 	}
 
-	void OnTriggerEnter2D(Collider2D collider) {
+	void OnTriggerEnter2D (Collider2D collider)
+	{
 		Projectile projectile = collider.gameObject.GetComponent<Projectile> ();
 		if (projectile) {
-			m_health -= projectile.GetDamage();
+			m_health -= projectile.GetDamage ();
 			projectile.Hit ();
 			
 			if (m_health <= 0) {
-				Destroy(gameObject);
+				Destroy (gameObject);
 			}
 		}
 	}

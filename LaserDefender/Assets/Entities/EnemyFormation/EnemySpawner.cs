@@ -54,7 +54,8 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
-	void SpawnUntilFull() {
+	void SpawnUntilFull ()
+	{
 		Transform freePosition = NextFreePosition ();
 		if (!freePosition) {
 			return;
@@ -65,7 +66,8 @@ public class EnemySpawner : MonoBehaviour
 		Invoke ("SpawnUntilFull", m_spawnDelay);
 	}
 
-	Transform NextFreePosition() {
+	Transform NextFreePosition ()
+	{
 		foreach (Transform childPositionGameOjbect in transform) {
 			if (childPositionGameOjbect.childCount == 0) {
 				return childPositionGameOjbect;

@@ -8,6 +8,13 @@ public class EnemyBehavior : MonoBehaviour
 	public GameObject m_projectile;
 	public float m_projectileSpeed;
 	public float m_shotsPerSecond;
+	public int m_scoreValue = 150;
+	private ScoreKeeper m_scoreKeeper;
+
+	void Start ()
+	{
+		m_scoreKeeper = GameObject.Find ("Score").GetComponent<ScoreKeeper> ();
+	}
 
 	// Update is called once per frame
 	void Update ()
@@ -27,6 +34,7 @@ public class EnemyBehavior : MonoBehaviour
 
 			if (m_health <= 0) {
 				Destroy (gameObject);
+				m_scoreKeeper.Score (m_scoreValue);
 			}
 		}
 	}
