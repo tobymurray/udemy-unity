@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
+	public AudioClip m_projectileSound;
 	public GameObject m_projectile;
 	public float m_speed;
 	public float m_padding;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
 	{
 		GameObject projectile = Instantiate (m_projectile, transform.position, Quaternion.identity) as GameObject;
 		projectile.rigidbody2D.velocity = Vector3.up * m_projectileSpeed;
+		AudioSource.PlayClipAtPoint (m_projectileSound, transform.position);
 	}
 
 	void OnTriggerEnter2D (Collider2D collider)

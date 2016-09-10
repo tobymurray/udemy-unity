@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EnemyBehavior : MonoBehaviour
 {
-
+	public AudioClip m_deathSound;
+	public AudioClip m_projectileSound;
 	public float m_health;
 	public GameObject m_projectile;
 	public float m_projectileSpeed;
@@ -33,15 +34,22 @@ public class EnemyBehavior : MonoBehaviour
 			projectile.Hit ();
 
 			if (m_health <= 0) {
-				Destroy (gameObject);
-				m_scoreKeeper.Score (m_scoreValue);
+				Die ();
 			}
 		}
 	}
 
+	void Die ()
+	{
+		AudioSource.PlayClipAtPoint (m_deathSound, transform.position);
+		Destroy (gameObject);
+		m_scoreKeeper.Score (m_scoreValue);
+	}
+	
 	void Fire ()
 	{
 		GameObject projectile = Instantiate (m_projectile, transform.position, Quaternion.identity) as GameObject;
 		projectile.rigidbody2D.velocity = Vector3.down * m_projectileSpeed;
+		AudioSource.PlayClipAtPoint (m_projectileSound, transform.position);
 	}
 }
