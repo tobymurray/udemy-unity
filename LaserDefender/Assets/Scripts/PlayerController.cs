@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
 	public float m_health;
 	private float m_minX;
 	private float m_maxX;
+	private LevelManager m_levelManager;
 
 	void Start ()
 	{
 		float distance = transform.position.z - Camera.main.transform.position.z;
 		Vector3 leftmost = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, distance));
 		Vector3 rightmost = Camera.main.ViewportToWorldPoint (new Vector3 (1, 0, distance));
+		m_levelManager = GameObject.Find ("LevelManager").GetComponent<LevelManager> ();
 
 		m_minX = leftmost.x + m_padding;
 		m_maxX = rightmost.x - m_padding;
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
 	{
 		GameObject projectile = Instantiate (m_projectile, transform.position, Quaternion.identity) as GameObject;
 		projectile.rigidbody2D.velocity = Vector3.up * m_projectileSpeed;
-		AudioSource.PlayClipAtPoint (m_projectileSound, transform.position);
+		AudioSource.PlayClipAtPoint(m_projectileSound, transform.position);
 	}
 
 	void OnTriggerEnter2D (Collider2D collider)
@@ -61,8 +63,13 @@ public class PlayerController : MonoBehaviour
 			projectile.Hit ();
 			
 			if (m_health <= 0) {
-				Destroy (gameObject);
+				Die ();
 			}
 		}
+	}
+
+	void Die () {
+		m_levelManager.LoadLevel ("Win Screen");
+		Destroy (gameObject);
 	}
 }

@@ -4,24 +4,29 @@ using System.Collections;
 
 public class ScoreKeeper : MonoBehaviour
 {
-	private int m_score;
+	private static int s_score;
 	private Text m_text;
 
 	void Start ()
 	{
+		s_score = 0;
 		m_text = GetComponent<Text> ();
-		Reset ();
+		m_text.text = s_score.ToString ();
 	}
 
 	public void Score (int points)
 	{
-		m_score += points;
-		m_text.text = m_score.ToString ();
+		s_score += points;
+		m_text.text = s_score.ToString ();
 	}
 
-	public void Reset ()
+	public static int get ()
 	{
-		m_score = 0;
-		m_text.text = m_score.ToString ();
+		return s_score;
+	}
+
+	public static void Reset ()
+	{
+		s_score = 0;
 	}
 }
