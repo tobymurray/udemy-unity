@@ -11,7 +11,7 @@ public class PlayerPrefsManager : MonoBehaviour
 	
 	public static void SetMasterVolume (float volume)
 	{
-		if (volume < 0f && volume > 1f) {
+		if (volume < 0f || volume > 1f) {
 			Debug.LogError ("Master volume (" + volume + ") out of range");
 			return;
 		}
@@ -44,9 +44,9 @@ public class PlayerPrefsManager : MonoBehaviour
 		return PlayerPrefs.GetInt (LEVEL_KEY + level.ToString ()) == TRUE;
 	}
 
-	public static void SetDifficulty (float difficulty)
+	public static void SetDifficulty (int difficulty)
 	{
-		if (difficulty < 0f && difficulty > 1f) {
+		if (1 > difficulty || difficulty > 3) {
 			Debug.LogError ("Difficulty (" + difficulty + ") out of range");
 			return;
 		}

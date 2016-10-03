@@ -31,6 +31,11 @@ public class MusicManager : MonoBehaviour
 			Debug.Log ("No level music configured for level " + level);
 		}
 	}
+
+	public void ChangeVolume (float volume)
+	{
+		m_audioSource.volume = volume;
+	}
 		
 	// Update is called once per frame
 	void Update ()
